@@ -1,0 +1,1002 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOWICE | Beachside Cafe</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            color: #263b3c;
+            background: #f8faf7;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px #00000010;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #178c8c;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #e6a65c;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 22px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #263b3c;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #178c8c;
+        }
+
+        .cart-link {
+            background: #178c8c;
+            color: white;
+            padding: 10px 17px;
+            border-radius: 25px;
+        }
+
+        .cart-link:hover {
+            background: #116d6d;
+            color: white;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 550px;
+            background:
+                linear-gradient(#003c3c70, #003c3c70),
+                url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e")
+                center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .hero h1 {
+            font-size: 68px;
+            letter-spacing: 9px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin: 15px 0 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #e6a65c;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #c98a42;
+        }
+
+        /* GENERAL SECTION */
+        section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            color: #178c8c;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        /* ABOUT */
+        .about {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+            line-height: 1.9;
+        }
+
+        /* MENU */
+        .menu {
+            background: #eaf4f1;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        article {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #00000010;
+            transition: 0.3s;
+        }
+
+        article:hover {
+            transform: translateY(-6px);
+        }
+
+        article img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .menu-info h3 {
+            color: #178c8c;
+            margin-bottom: 10px;
+        }
+
+        .menu-info p {
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 45px;
+        }
+
+        .price {
+            display: block;
+            color: #d28c40;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        .add-btn {
+            width: 100%;
+            background: #178c8c;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #116d6d;
+        }
+
+        /* CART */
+        .cart-section {
+            background: white;
+        }
+
+        .cart-box {
+            max-width: 800px;
+            margin: auto;
+            background: #f3f8f6;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-info small {
+            color: #777;
+        }
+
+        .quantity button {
+            background: #178c8c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quantity span {
+            padding: 0 8px;
+            font-weight: bold;
+        }
+
+        .cart-total {
+            text-align: right;
+            margin: 25px 0;
+            font-size: 21px;
+            font-weight: bold;
+            color: #178c8c;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #178c8c;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #116d6d;
+        }
+
+        .empty {
+            text-align: center;
+            color: #888;
+            padding: 25px;
+        }
+
+        /* CHECKOUT */
+        #checkout {
+            display: none;
+            background: #eaf4f1;
+        }
+
+        #checkout .cart-box {
+            background: white;
+        }
+
+        #checkout input,
+        #checkout select,
+        #checkout textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 15px;
+            background: white;
+            font-family: inherit;
+        }
+
+        #checkout label {
+            font-weight: bold;
+            color: #174d50;
+            display: block;
+            margin-top: 15px;
+        }
+
+        #payment-info {
+            background: #eaf4f1;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 20px;
+            line-height: 1.8;
+            display: none;
+        }
+
+        .payment-note {
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* SUCCESS */
+        #order-success {
+            display: none;
+            background: white;
+            text-align: center;
+        }
+
+        #order-success .cart-box {
+            padding: 40px;
+        }
+
+        #order-success h2 {
+            color: #178c8c;
+            margin-bottom: 15px;
+        }
+
+        #order-detail {
+            line-height: 2;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        /* LOCATION */
+        .location {
+            text-align: center;
+            line-height: 2;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #174d50;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+            line-height: 2;
+        }
+
+        footer h2 {
+            color: #f0bd78;
+            letter-spacing: 3px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 50px 6%;
+            }
+
+            .cart-item {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">FLOW<span>ICE</span></div>
+
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#location">Location</a></li>
+                <li>
+                    <a href="#cart" class="cart-link">
+                        🛒 Cart (<span id="cart-count">0</span>)
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HOME -->
+        <section class="hero" id="home">
+            <div>
+                <h1>FLOWICE</h1>
+                <p>Sip, Chill, and Enjoy the Ocean View.</p>
+                <a href="#menu" class="btn">Explore Our Menu</a>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about">
+            <div class="section-title">
+                <h2>About FLOWICE</h2>
+                <p>More than just a cafe, it's a place to relax.</p>
+            </div>
+
+            <div class="about">
+                <p>
+                    FLOWICE adalah sebuah cafe yang didirikan di dekat
+                    pesisir pantai. Kami menghadirkan tempat yang nyaman
+                    untuk menikmati kopi, ice cream, dan pastry sambil
+                    melihat keindahan laut.
+                </p>
+                <br>
+                <p>
+                    Kami percaya bahwa secangkir kopi, dessert yang lezat,
+                    dan pemandangan pantai dapat menciptakan momen
+                    yang tidak terlupakan.
+                </p>
+            </div>
+        </section>
+
+        <!-- MENU -->
+        <section class="menu" id="menu">
+
+            <div class="section-title">
+                <h2>Our Special Menu</h2>
+                <p>Choose your favorite taste at FLOWICE.</p>
+            </div>
+
+            <div class="menu-container">
+
+                <!-- COFFEE -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735" alt="Iced Coffee Latte">
+                    <div class="menu-info">
+                        <h3>Iced Coffee Latte</h3>
+                        <p>Espresso dengan susu segar yang creamy.</p>
+                        <span class="price">Rp25.000</span>
+                        <button class="add-btn" onclick="addToCart('Iced Coffee Latte',25000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd" alt="Iced Americano">
+                    <div class="menu-info">
+                        <h3>Iced Americano</h3>
+                        <p>Kopi espresso yang menyegarkan.</p>
+                        <span class="price">Rp20.000</span>
+                        <button class="add-btn" onclick="addToCart('Iced Americano',20000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f" alt="Cappuccino">
+                    <div class="menu-info">
+                        <h3>Cappuccino</h3>
+                        <p>Espresso, susu, dan foam lembut.</p>
+                        <span class="price">Rp27.000</span>
+                        <button class="add-btn" onclick="addToCart('Cappuccino',27000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735" alt="Caramel Macchiato">
+                    <div class="menu-info">
+                        <h3>Caramel Macchiato</h3>
+                        <p>Kopi susu dengan saus karamel.</p>
+                        <span class="price">Rp30.000</span>
+                        <button class="add-btn" onclick="addToCart('Caramel Macchiato',30000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <!-- ICE CREAM -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb" alt="Chocolate Ice Cream">
+                    <div class="menu-info">
+                        <h3>Chocolate Ice Cream</h3>
+                        <p>Ice cream cokelat yang lembut.</p>
+                        <span class="price">Rp18.000</span>
+                        <button class="add-btn" onclick="addToCart('Chocolate Ice Cream',18000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1488900128323-21503983a07e" alt="Strawberry Ice Cream">
+                    <div class="menu-info">
+                        <h3>Strawberry Ice Cream</h3>
+                        <p>Rasa strawberry yang segar.</p>
+                        <span class="price">Rp18.000</span>
+                        <button class="add-btn" onclick="addToCart('Strawberry Ice Cream',18000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1557142046-c704a3adf364" alt="Matcha Ice Cream">
+                    <div class="menu-info">
+                        <h3>Vanilla Ice Cream</h3>
+                        <p>Ice cream vanilla dengan saus cokelat.</p>
+                        <span class="price">Rp22.000</span>
+                        <button class="add-btn" onclick="addToCart('Matcha Ice Cream',22000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <!-- PASTRY -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a" alt="Butter Croissant">
+                    <div class="menu-info">
+                        <h3>Butter Croissant</h3>
+                        <p>Pastry renyah dengan aroma butter.</p>
+                        <span class="price">Rp22.000</span>
+                        <button class="add-btn" onclick="addToCart('Butter Croissant',22000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff" alt="Cinnamon Roll">
+                    <div class="menu-info">
+                        <h3>Cinnamon Roll</h3>
+                        <p>Roti lembut dengan aroma kayu manis.</p>
+                        <span class="price">Rp24.000</span>
+                        <button class="add-btn" onclick="addToCart('Cinnamon Roll',24000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c" alt="Chocolate Brownies">
+                    <div class="menu-info">
+                        <h3>Chocolate Brownies</h3>
+                        <p>Brownies cokelat dengan tekstur fudgy.</p>
+                        <span class="price">Rp20.000</span>
+                        <button class="add-btn" onclick="addToCart('Chocolate Brownies',20000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+                <article>
+                    <img src="https://images.unsplash.com/photo-1562376552-0d160a2f238d" alt="Sweet Waffle">
+                    <div class="menu-info">
+                        <h3>Sweet Waffle</h3>
+                        <p>Waffle hangat dengan topping manis.</p>
+                        <span class="price">Rp28.000</span>
+                        <button class="add-btn" onclick="addToCart('Sweet Waffle',28000)">+ Add to Cart</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CART -->
+        <section class="cart-section" id="cart">
+
+            <div class="section-title">
+                <h2>Your Shopping Cart</h2>
+                <p>Review your order before checkout.</p>
+            </div>
+
+            <div class="cart-box">
+
+                <div id="cart-items">
+                    <p class="empty">Keranjang kamu masih kosong.</p>
+                </div>
+
+                <div class="cart-total">
+                    Total: <span id="total">Rp0</span>
+                </div>
+
+                <button class="checkout-btn" onclick="checkout()">
+                    Proceed to Checkout
+                </button>
+
+            </div>
+        </section>
+
+        <!-- CHECKOUT -->
+        <section id="checkout">
+
+            <div class="section-title">
+                <h2>Checkout</h2>
+                <p>Complete your order at FLOWICE.</p>
+            </div>
+
+            <div class="cart-box">
+
+                <form id="checkout-form">
+
+                    <label for="customer-name">Nama Lengkap</label>
+                    <input type="text" id="customer-name"
+                           placeholder="Masukkan nama lengkap" required>
+
+                    <label for="customer-phone">Nomor Telepon</label>
+                    <input type="tel" id="customer-phone"
+                           placeholder="Contoh: 081234567890"
+                           pattern="[0-9]{10,15}" required>
+
+                    <label for="order-type">Jenis Pesanan</label>
+                    <select id="order-type" required>
+                        <option value="">Pilih jenis pesanan</option>
+                        <option value="Dine In">Dine In</option>
+                        <option value="Takeaway">Takeaway</option>
+                    </select>
+
+                    <label for="payment-method">Metode Pembayaran</label>
+                    <select id="payment-method" required
+                            onchange="showPaymentInfo()">
+                        <option value="">Pilih pembayaran</option>
+                        <option value="QRIS">QRIS</option>
+                        <option value="Transfer Bank">Transfer Bank</option>
+                        <option value="COD">COD</option>
+                    </select>
+
+                    <div id="payment-info"></div>
+
+                    <label for="order-note">Catatan Pesanan (Opsional)</label>
+                    <textarea id="order-note" rows="3"
+                              placeholder="Contoh: Kurangi gula, tanpa es..."></textarea>
+
+                    <div class="cart-total">
+                        Total Pembayaran:
+                        <span id="checkout-total">Rp0</span>
+                    </div>
+
+                    <button type="submit" class="checkout-btn">
+                        Confirm Order
+                    </button>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- ORDER SUCCESS -->
+        <section id="order-success">
+
+            <div class="cart-box">
+                <h2>✓ Order Successful!</h2>
+
+                <p>Terima kasih telah memesan di FLOWICE.</p>
+
+                <div id="order-detail"></div>
+
+                <button class="btn" onclick="newOrder()">
+                    Back to Home
+                </button>
+            </div>
+
+        </section>
+
+        <!-- LOCATION -->
+        <section id="location">
+
+            <div class="section-title">
+                <h2>Visit FLOWICE</h2>
+                <p>Enjoy the beauty of the ocean with us.</p>
+            </div>
+
+            <div class="location">
+                <p>📍 Location: Pantai Sandhya Pawana</p>
+                <p>🕒 Opening Hours: 10.00 - 22.00 WIB</p>
+                <p>🌊 Coffee, dessert, and ocean views.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <h2>FLOWICE</h2>
+        <p>Sip, Chill, and Enjoy the Ocean View.</p>
+        <p>Instagram:
+        <a href="https://www.instagram.com/flowice.cafe/"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color: #f6d99a; text-decoration: none;">
+            @flowice.cafe
+        </a>
+    </p>
+        <p>Email: hello@flowice.com</p>
+        <p>&copy; 2026 FLOWICE Cafe. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // DATA KERANJANG
+        let cart = [];
+
+        // FORMAT RUPIAH
+        function formatRupiah(number) {
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }).format(number);
+        }
+
+        // TAMBAH PRODUK
+        function addToCart(name, price) {
+
+            const existingItem =
+                cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+
+            renderCart();
+
+            alert(name + " berhasil ditambahkan ke keranjang!");
+        }
+
+        // TAMPILKAN KERANJANG
+        function renderCart() {
+
+            const cartItems =
+                document.getElementById("cart-items");
+
+            const totalElement =
+                document.getElementById("total");
+
+            const countElement =
+                document.getElementById("cart-count");
+
+            cartItems.innerHTML = "";
+
+            let total = 0;
+            let count = 0;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML =
+                    '<p class="empty">Keranjang kamu masih kosong.</p>';
+            }
+
+            cart.forEach((item, index) => {
+
+                const subtotal =
+                    item.price * item.quantity;
+
+                total += subtotal;
+                count += item.quantity;
+
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+
+                        <div class="cart-item-info">
+                            <strong>${item.name}</strong><br>
+                            <small>${formatRupiah(item.price)}</small>
+                            <br>
+                            <small>Subtotal: ${formatRupiah(subtotal)}</small>
+                        </div>
+
+                        <div class="quantity">
+                            <button type="button"
+                                onclick="changeQuantity(${index}, -1)">-</button>
+
+                            <span>${item.quantity}</span>
+
+                            <button type="button"
+                                onclick="changeQuantity(${index}, 1)">+</button>
+                        </div>
+
+                    </div>
+                `;
+            });
+
+            totalElement.textContent =
+                formatRupiah(total);
+
+            countElement.textContent = count;
+        }
+
+        // UBAH JUMLAH PRODUK
+        function changeQuantity(index, change) {
+
+            cart[index].quantity += change;
+
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+
+            renderCart();
+        }
+
+        // HITUNG TOTAL
+        function getTotal() {
+            return cart.reduce((sum, item) =>
+                sum + (item.price * item.quantity), 0);
+        }
+
+        // BUKA CHECKOUT
+        function checkout() {
+
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong!");
+                return;
+            }
+
+            document.getElementById("checkout").style.display = "block";
+
+            document.getElementById("checkout-total").textContent =
+                formatRupiah(getTotal());
+
+            document.getElementById("checkout")
+                .scrollIntoView({ behavior: "smooth" });
+        }
+
+        // INFORMASI PEMBAYARAN
+        function showPaymentInfo() {
+
+            const method =
+                document.getElementById("payment-method").value;
+
+            const info =
+                document.getElementById("payment-info");
+
+            info.style.display = "block";
+
+            if (method === "QRIS") {
+
+                info.innerHTML = `
+                    <h3>QRIS Payment</h3>
+                    <p>Silakan lakukan pembayaran menggunakan QRIS.</p>
+                    <p class="payment-note">
+                        QRIS pada versi ini masih berupa simulasi.
+                        Hubungkan payment gateway untuk transaksi nyata.
+                    </p>
+                `;
+
+            } else if (method === "Transfer Bank") {
+
+                info.innerHTML = `
+                    <h3>Bank Transfer</h3>
+                    <p>Bank: BCA</p>
+                    <p>Nomor Rekening: 1234567890</p>
+                    <p>Atas Nama: FLOWICE CAFE</p>
+                    <p class="payment-note">
+                        Nomor rekening di atas hanya contoh.
+                        Ganti dengan rekening bisnis yang sebenarnya.
+                    </p>
+                `;
+
+            } else if (method === "COD") {
+
+                info.innerHTML = `
+                    <h3>Cash on Delivery</h3>
+                    <p>Pembayaran dilakukan langsung di kasir
+                    ketika pesanan takeaway diterima.</p>
+                    <p class="payment-note">
+                        COD hanya simulasi dan perlu disesuaikan
+                        dengan layanan yang disediakan FLOWICE.
+                    </p>
+                `;
+
+            } else {
+
+                info.innerHTML = "";
+                info.style.display = "none";
+
+            }
+        }
+
+        // PROSES PESANAN
+        document.getElementById("checkout-form")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong!");
+                return;
+            }
+
+            const name =
+                document.getElementById("customer-name").value.trim();
+
+            const phone =
+                document.getElementById("customer-phone").value.trim();
+
+            const orderType =
+                document.getElementById("order-type").value;
+
+            const payment =
+                document.getElementById("payment-method").value;
+
+            const note =
+                document.getElementById("order-note").value.trim();
+
+            const total = getTotal();
+
+            const orderNumber =
+                "FLW" + Date.now().toString().slice(-8);
+
+            let detail = `
+                <p><strong>Nomor Pesanan:</strong> ${orderNumber}</p>
+                <p><strong>Nama:</strong> ${name}</p>
+                <p><strong>Telepon:</strong> ${phone}</p>
+                <p><strong>Jenis Pesanan:</strong> ${orderType}</p>
+                <p><strong>Pembayaran:</strong> ${payment}</p>
+                <hr>
+                <h3>Detail Menu:</h3>
+            `;
+
+            cart.forEach(item => {
+
+                detail += `
+                    <p>${item.name} x ${item.quantity}
+                    — ${formatRupiah(item.price * item.quantity)}</p>
+                `;
+
+            });
+
+            detail += `
+                <hr>
+                <h3>Total: ${formatRupiah(total)}</h3>
+                <p><strong>Catatan:</strong> ${note || "-"}</p>
+                <p><strong>Status:</strong> Menunggu konfirmasi pembayaran</p>
+            `;
+
+            document.getElementById("order-detail").innerHTML = detail;
+
+            document.getElementById("checkout").style.display = "none";
+            document.getElementById("cart").style.display = "none";
+
+            document.getElementById("order-success").style.display = "block";
+
+            document.getElementById("order-success")
+                .scrollIntoView({ behavior: "smooth" });
+
+            cart = [];
+
+            renderCart();
+
+        });
+
+        // PESANAN BARU
+        function newOrder() {
+
+            document.getElementById("order-success").style.display = "none";
+            document.getElementById("cart").style.display = "block";
+
+            document.getElementById("checkout-form").reset();
+
+            document.getElementById("payment-info").innerHTML = "";
+            document.getElementById("payment-info").style.display = "none";
+
+            document.getElementById("checkout").style.display = "none";
+
+            document.getElementById("home")
+                .scrollIntoView({ behavior: "smooth" });
+        }
+
+        // INISIALISASI
+        renderCart();
+
+    </script>
+
+</body>
+</html>
